@@ -22,7 +22,12 @@ pipeline {
     }
 
     stage("build") {
-      agent { node {label 'master'}}
+      agent {
+          docker {
+            image 'python:3.8-slim-buster'
+            args '-u 0:0 -v /tmp:/root/.cache'
+          }
+      }
       environment {
         DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
       }
