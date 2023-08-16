@@ -7,22 +7,22 @@ pipeline {
   }
 
   stages {
-    // stage("Test") {
-    //   agent {
-    //       docker {
-    //         image 'python:3.8-slim-buster'
-    //         args '-u 0:0 -v /tmp:/root/.cache'
-    //       }
-    //   }
-    //   steps {
-    //     sh "pip install poetry"
-    //     sh "poetry install"
-    //     sh "poetry run pytest"
-    //   }
-    // }
+    stage("Test") {
+      agent {
+          docker {
+            image 'python:3.8-slim-buster'
+            args '-u 0:0 -v /tmp:/root/.cache'
+          }
+      }
+      steps {
+        sh "pip install poetry"
+        sh "poetry install"
+        sh "poetry run pytest"
+      }
+    }
 
     stage("build") {
-      agent { node {label 'main'}}
+      agent { node {label 'origin'}}
       environment {
         DOCKER_TAG="${GIT_BRANCH.tokenize('/').pop()}-${GIT_COMMIT.substring(0,7)}"
       }
