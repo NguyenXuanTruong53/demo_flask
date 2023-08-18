@@ -46,12 +46,8 @@ pipeline {
       agent { node {label 'built-in'}}
       steps {
         script {
-            def privateKey = credentials('ssh-key')
-            sh """
-              echo "${privateKey}" > /var/jenkins_home/.ssh/id_rsa
-              chmod 600 /var/jenkins_home/.ssh/id_rsa
-              ssh -i /var/jenkins_home/.ssh/id_rsa root@137.184.15.239 './deploy.sh'
-            """
+            sh "chmod +x deploy.sh" // Cấp quyền thực thi cho script deploy.sh
+            sh "./deploy.sh"
         }
       }
     }
