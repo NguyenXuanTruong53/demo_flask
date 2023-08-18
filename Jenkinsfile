@@ -48,13 +48,8 @@ pipeline {
       }
     }
     stage("Deploy") {
-        agent {{ node {label 'built-in'}}}
-        steps {
-            script {
-                // Thực hiện triển khai bằng Docker Compose
-                sh "chmod +x deploy.sh" // Cấp quyền thực thi cho script deploy.sh
-                sh "./deploy.sh"
-            }
+        withCredentials([sshKey(credentialsId: 'c4a30513-ef7a-4e86-a96d-b157dd28c128', sshKeyVariable: 'SSH_KEY')]) {
+            sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
         }
     }
   }
