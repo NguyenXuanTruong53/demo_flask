@@ -53,11 +53,12 @@ pipeline {
     stage("Deploy") {
         agent { node { label 'built-in' } }
         steps {
+            script {
             sshagent(['ssh-key']) {
-                script {
-                    sh 'scp -o StrictHostKeyChecking=no -i $SSH_KEY -r demo_flask root@137.184.15.239'
-                }
+                sh 'scp -o StrictHostKeyChecking=no -i $SSH_KEY deploy.sh root@137.184.15.239:/demo_flask'
+                sh 'ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@137.184.15.239 "chmod +x /demo_flask/deploy.sh && /demo_flask/deploy.sh"'
             }
+          }
         }
     }
   }
