@@ -52,6 +52,7 @@ pipeline {
         withCredentials([sshKey(credentialsId: 'c4a30513-ef7a-4e86-a96d-b157dd28c128', sshKeyVariable: 'SSH_KEY')]) {
             sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
         }
+      }
     }
   }
 
