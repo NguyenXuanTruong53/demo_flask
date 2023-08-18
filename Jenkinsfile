@@ -55,7 +55,7 @@ pipeline {
         steps {
             script {
             sshagent(['ssh-key']) {
-                sh "scp -o StrictHostKeyChecking=no -i $SSH_KEY deploy.sh root@137.184.15.239:/root/demo_flask"
+                sh "scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa deploy.sh root@137.184.15.239:/root/demo_flask"
                 sh "ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@137.184.15.239 'chmod +x /root/demo_flask/deploy.sh && /root/demo_flask/deploy.sh'"
             }
           }
