@@ -48,12 +48,7 @@ pipeline {
       }
     }
     stage("Deploy") {
-        agent {
-            docker {
-                image 'docker/compose:latest'
-                args '-v /var/run/docker.sock:/var/run/docker.sock'
-            }
-        }
+        agent {{ node {label 'built-in'}}}
         steps {
             script {
                 // Thực hiện triển khai bằng Docker Compose
