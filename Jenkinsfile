@@ -43,7 +43,7 @@ pipeline {
       }
     }
     stage("Deploy") {
-      agent { node {label 'ssh-key'}}
+      agent { node {label 'built-in'}}
       steps {
         // withCredentials([sshKey(credentialsId: 'ssh-key', sshKeyVariable: 'SSH_KEY')]) {
         //     sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
