@@ -42,7 +42,7 @@ pipeline {
       }
     }
     stage("Deploy") {
-        agent none
+        agent { node {label 'built-in'}}
         steps {
             script {
                 // Thực hiện triển khai bằng Docker Compose
