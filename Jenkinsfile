@@ -42,12 +42,11 @@ pipeline {
         sh "docker image rm ${DOCKER_IMAGE}:latest"
       }
     }
-    stage("Deploy") {
+    stage("SSH server") {
       agent { node {label 'built-in'}}
       steps {
-        script {
-            sh "chmod +x deploy.sh" // Cấp quyền thực thi cho script deploy.sh
-            sh "./deploy.sh"
+        sshagent(['ssh-key']) {
+          sh 'ssh -o StrictHostKeyChecking=no -l root 137.184.15.239 touch test.txt'
         }
       }
     }
