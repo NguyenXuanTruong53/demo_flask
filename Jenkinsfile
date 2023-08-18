@@ -18,6 +18,9 @@ pipeline {
         sh "pip install poetry"
         sh "poetry install"
         sh "poetry run pytest"
+        sh "apt-get update && apt-get install -y docker.io"
+        sh "curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
+        sh "chmod +x /usr/local/bin/docker-compose"
       }
     }
 
@@ -42,7 +45,7 @@ pipeline {
       }
     }
     stage("Deploy") {
-        agent { node {label 'built-in'}}
+       agent { node {label 'built-in'}}
         steps {
             script {
                 // Thực hiện triển khai bằng Docker Compose
