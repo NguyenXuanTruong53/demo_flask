@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+export PATH="/usr/local/bin:$PATH"
 cd `dirname $BASH_SOURCE`
 
 docker-compose stop
