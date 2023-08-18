@@ -4,7 +4,7 @@ pipeline {
 
   environment {
     DOCKER_IMAGE = "nxtruong451999/docker-flask"
-    SSH_KEY="AAAAB3NzaC1yc2EAAAADAQABAAABgQCeN2zonSS0J++s2xA+Ah0RyrKGLqQiYXUMBJJ+7oYhfTkD7+e2ruV57wwS4sKj494QxKgvC5nGW+tFNUbEcYHks+OKb3Zpt4mcoGEWOj7pG/mzq/1X6N3BA13U0a8rw9o+qCCak73VTT5zhBEcBj+XX591ypJJG4g1NHgYBVaOsIG+DNXp5LBR6nvHCLR9JJwNIwJD+j4gHnxbup5wm8C5IUSg8KcctkSOw/SdFdTzXlTOnUSFv3gMTpbms/pKQrNxDXT3+lXVszyiNvnDHDvv02TroCi01cvShA5lKkFW7CxoMAPHJLBsiheHVdzyIQkCZrYn8+rjQzpS37kLODSDzZCBQiTfrnfkF6D1UCUJnQYUXY9IZI5Bow5GM+dGSltoINYrkZ4CyrgXxYQ7B6HQY1MFfOxzRTGht8oDzqy51WONJPsqJOxLKMMSJzeVsPKIyXK703Q76ypcNNrgRGBpgglAtQvOBVQSXHbxZXRtk3nE3s+K/BHtr5NkND1yXos"
+    SSH_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCeN2zonSS0J++s2xA+Ah0RyrKGLqQiYXUMBJJ+7oYhfTkD7+e2ruV57wwS4sKj494QxKgvC5nGW+tFNUbEcYHks+OKb3Zpt4mcoGEWOj7pG/mzq/1X6N3BA13U0a8rw9o+qCCak73VTT5zhBEcBj+XX591ypJJG4g1NHgYBVaOsIG+DNXp5LBR6nvHCLR9JJwNIwJD+j4gHnxbup5wm8C5IUSg8KcctkSOw/SdFdTzXlTOnUSFv3gMTpbms/pKQrNxDXT3+lXVszyiNvnDHDvv02TroCi01cvShA5lKkFW7CxoMAPHJLBsiheHVdzyIQkCZrYn8+rjQzpS37kLODSDzZCBQiTfrnfkF6D1UCUJnQYUXY9IZI5Bow5GM+dGSltoINYrkZ4CyrgXxYQ7B6HQY1MFfOxzRTGht8oDzqy51WONJPsqJOxLKMMSJzeVsPKIyXK703Q76ypcNNrgRGBpgglAtQvOBVQSXHbxZXRtk3nE3s+K/BHtr5NkND1yXos= root@ubuntu-s-1vcpu-1gb-sfo3-01"
   }
 
   stages {
@@ -45,12 +45,9 @@ pipeline {
     stage("Deploy") {
       agent { node {label 'built-in'}}
       steps {
-        // withCredentials([sshKey(credentialsId: 'ssh-key', sshKeyVariable: 'SSH_KEY')]) {
-        //     sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
-        // }
         script {
             def sshKey = credentials('ssh-key')
-            sshUserPrivateKey(credentialsId: 'ssh-key', sshKeyVariable: 'AAAAB3NzaC1yc2EAAAADAQABAAABgQCeN2zonSS0J++s2xA+Ah0RyrKGLqQiYXUMBJJ+7oYhfTkD7+e2ruV57wwS4sKj494QxKgvC5nGW+tFNUbEcYHks+OKb3Zpt4mcoGEWOj7pG/mzq/1X6N3BA13U0a8rw9o+qCCak73VTT5zhBEcBj+XX591ypJJG4g1NHgYBVaOsIG+DNXp5LBR6nvHCLR9JJwNIwJD+j4gHnxbup5wm8C5IUSg8KcctkSOw/SdFdTzXlTOnUSFv3gMTpbms/pKQrNxDXT3+lXVszyiNvnDHDvv02TroCi01cvShA5lKkFW7CxoMAPHJLBsiheHVdzyIQkCZrYn8+rjQzpS37kLODSDzZCBQiTfrnfkF6D1UCUJnQYUXY9IZI5Bow5GM+dGSltoINYrkZ4CyrgXxYQ7B6HQY1MFfOxzRTGht8oDzqy51WONJPsqJOxLKMMSJzeVsPKIyXK703Q76ypcNNrgRGBpgglAtQvOBVQSXHbxZXRtk3nE3s+K/BHtr5NkND1yXos')
+            sshUserPrivateKey(credentialsId: 'ssh-key', sshKeyVariable: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCeN2zonSS0J++s2xA+Ah0RyrKGLqQiYXUMBJJ+7oYhfTkD7+e2ruV57wwS4sKj494QxKgvC5nGW+tFNUbEcYHks+OKb3Zpt4mcoGEWOj7pG/mzq/1X6N3BA13U0a8rw9o+qCCak73VTT5zhBEcBj+XX591ypJJG4g1NHgYBVaOsIG+DNXp5LBR6nvHCLR9JJwNIwJD+j4gHnxbup5wm8C5IUSg8KcctkSOw/SdFdTzXlTOnUSFv3gMTpbms/pKQrNxDXT3+lXVszyiNvnDHDvv02TroCi01cvShA5lKkFW7CxoMAPHJLBsiheHVdzyIQkCZrYn8+rjQzpS37kLODSDzZCBQiTfrnfkF6D1UCUJnQYUXY9IZI5Bow5GM+dGSltoINYrkZ4CyrgXxYQ7B6HQY1MFfOxzRTGht8oDzqy51WONJPsqJOxLKMMSJzeVsPKIyXK703Q76ypcNNrgRGBpgglAtQvOBVQSXHbxZXRtk3nE3s+K/BHtr5NkND1yXos= root@ubuntu-s-1vcpu-1gb-sfo3-01')
             sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
         }
       }
