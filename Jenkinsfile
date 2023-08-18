@@ -54,7 +54,7 @@ pipeline {
         // }
         script {
             def sshKey = credentials('ssh-key')  // Replace 'ssh-key' with your actual credentials ID
-            sshUserPrivateKey(credentialsId: sshKey.id, keyFileVariable: 'SSH_KEY')
+            sshUserPrivateKey(credentialsId: 'ssh-key', keyFileVariable: 'SSH_KEY')
             sh "ssh -i $SSH_KEY root@137.184.15.239 './deploy.sh'"
         }
       }
