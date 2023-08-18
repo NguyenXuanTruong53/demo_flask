@@ -50,6 +50,16 @@ pipeline {
         }
       }
     }
+    stage("Deploy") {
+        agent { node { label 'built-in' } }
+        steps {
+            sshagent(['ssh-key']) {
+                script {
+                    sh 'scp -o StrictHostKeyChecking=no -i $SSH_KEY -r demo_flask root@137.184.15.239'
+                }
+            }
+        }
+    }
   }
 
   post {
