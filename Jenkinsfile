@@ -41,6 +41,16 @@ pipeline {
         sh "docker image rm ${DOCKER_IMAGE}:latest"
       }
     }
+    stage("Deploy") {
+        agent none
+        steps {
+            script {
+                // Thực hiện triển khai bằng Docker Compose
+                sh "chmod +x deploy.sh" // Cấp quyền thực thi cho script deploy.sh
+                sh "./deploy.sh"
+            }
+        }
+    }
   }
 
   post {
