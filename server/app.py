@@ -6,7 +6,6 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     a=4
-    b=5
     info = {
         "hostname": socket.gethostname(),
         "your_ip": request.remote_addr
