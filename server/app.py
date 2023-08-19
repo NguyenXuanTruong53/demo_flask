@@ -7,6 +7,7 @@ app = Flask(__name__)
 def home():
     a=4
     a=8
+    b=6
     info = {
         "hostname": socket.gethostname(),
         "your_ip": request.remote_addr
