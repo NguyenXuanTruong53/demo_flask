@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     a=4
-    a=2
+    a=3
     b=18
     info = {
         "hostname": socket.gethostname(),
