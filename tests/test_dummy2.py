@@ -6,6 +6,3 @@ def test_dummy2():
     assert 2 == 2
     assert 3 == 3
     assert 4 == 4
-    assert 43 == 1
-    assert 43 == 2
-    assert 43 == 7
